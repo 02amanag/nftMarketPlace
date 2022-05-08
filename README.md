@@ -13,3 +13,8 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+
+
+To start frontend 
+
+npm run dev
