@@ -37,7 +37,7 @@ contract NFTMarket is ReentrancyGuard {
         bool sold
     );
 
-    function getListing_Price() public view returns (uint256) {
+    function getListingPrice() public view returns (uint256) {
         return listingPrice;
     }
 
@@ -91,10 +91,14 @@ contract NFTMarket is ReentrancyGuard {
             "Please submit the asking price in order to complete the purchase"
         );
 
+        //transfering value to seller
         idToMarketItem[itemId].seller.transfer(msg.value);
+
+        //tranfering ownership from contract to buyer
         IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
         idToMarketItem[itemId].owner = payable(msg.sender);
         idToMarketItem[itemId].sold = true;
+
         itemsSold.increment();
         payable(owner).transfer(listingPrice);
     }
